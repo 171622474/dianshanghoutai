@@ -9,6 +9,10 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 // 引入自定义basecss文件
 import './assets/base.css'
+// 引入axios http 插件
+import axios from './plugins/http'
+// 挂在axios http插件
+Vue.use(axios)
 // Vue.config.productionTip = false
 // 挂载注册插件
 Vue.use(ElementUI)
