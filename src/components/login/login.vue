@@ -3,7 +3,6 @@
 
     <el-form label-position="top"
              class="form"
-             :rules="loginFormChecked"
              label-width="80px">
       <h2>后台管理系统</h2>
       <el-form-item label="用户名">
@@ -35,9 +34,14 @@ export default {
   methods: {
     async toLogin () {
       const res = await this.$http.post('login', this.loginForm)
-      const { meta: { msg, status } } = res.data
+      const { meta: { msg, status }, data: { token } } = res.data
+      console.log(res)
       if (status !== 200) this.$message.warning(msg)
       this.$message.success(msg)
+      // 将token存储到localStoage中
+      localStorage.setItem('token', token)
+      // 导航路由强制跳转
+      this.$router.push({ name: 'users' })
     }
   }
 
@@ -50,6 +54,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #324152;
 }
 .form {
   padding: 40px;
