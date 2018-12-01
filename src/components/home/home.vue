@@ -11,6 +11,7 @@
         </el-col>
         <el-col :span="12">
           <el-button type="info"
+                     @click="outLogin"
                      class="Home-out">退出</el-button>
         </el-col>
       </el-row>
@@ -73,7 +74,7 @@
       </el-aside>
       <!-- 主题部分 -->
       <el-main class="home-main">
-       <router-view></router-view>
+        <router-view></router-view>
       </el-main>
     </el-container>
   </el-container>
@@ -82,7 +83,27 @@
 
 <script>
 export default {
-
+  methods: {
+    outLogin () {
+      this.$confirm('退出吗？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$router.push({ name: 'login' })
+        localStorage.clear()
+        this.$message({
+          type: 'success',
+          message: '退出成功!'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+    }
+  }
 }
 </script>
 
